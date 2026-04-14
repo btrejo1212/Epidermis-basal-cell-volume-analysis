@@ -56,7 +56,7 @@ START=1: 10.15.18.22. | 50.60.70 | 80.90.100
 
 ## Data structure
 
-
+```
 Data/
 Live volumes from cell tracking/
 Tracked ex cell 1/
@@ -66,7 +66,7 @@ Denoised_Image Seq/
 All_Timepoints_Combined.xlsx
 Middle Z/
 Basal Z/
-
+```
 
 Each plane must contain:
 - tracking file
