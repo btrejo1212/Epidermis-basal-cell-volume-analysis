@@ -114,7 +114,7 @@ results/Live volumes from cell tracking/
 
 Includes:
 - tracked cell tables
-- BVMA measurement tables
+- BMA measurement tables
 - volume calculations
 - 3D visualization images
 
