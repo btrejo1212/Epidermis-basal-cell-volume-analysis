@@ -1,4 +1,4 @@
-FIXED MEMBRANE AND NUCLEUS VOLUME ANALYSIS
+Fixed membrane and nucleus volume analysis
 
 Overview
 --------
@@ -14,7 +14,7 @@ Each cell must already be segmented. This script does NOT perform segmentation.
 
 IMPORTANT: Cell-cycle phase assignment
 -------------------------------------
-Cell-cycle phase (G1, S, G2) is NOT determined automatically.
+Cell-cycle phase (G1, S, G2) is not determined automatically.
 
 Phase is assigned manually before running the script and is taken from the
 cell folder name, for example:
@@ -24,10 +24,10 @@ cell folder name, for example:
     G2 cell 3
 
 These labels were determined by visual inspection of fixed samples using:
-    - FUCCI reporters
+    - FUCCI reporter
     - Geminin staining
 
-The script simply reads the folder name and assigns the phase accordingly.
+The script reads the folder name and assigns the phase accordingly.
 
 ---------------------------------------------------------------------
 
@@ -92,7 +92,7 @@ If multiple objects are present in a mask:
 
 ---------------------------------------------------------------------
 
-Width definition (IMPORTANT)
+Width definition
 ---------------------------
 Width is defined as the largest in-plane diameter across all Z slices.
 
@@ -122,13 +122,13 @@ This allows comparison across positions and phases within the same embryo.
 Output
 ------
 For each position, the script writes:
-
+```
 results/
   Fixed volumes of membrane and nucleus/
     <Embryo>/
       <Position>/
         FrustumVolumes_Membrane_Nucleus_byCell.xlsx
-
+```
 Each row = one cell
 
 Includes:
@@ -160,15 +160,12 @@ From the repository root:
 
     python "src\\Fixed volumes of membrane and nucleus\\fixed_membrane_nucleus_volumes.py"
 
-Do NOT run from inside the src folder.
-
 ---------------------------------------------------------------------
 
-Notes / Limitations
+Notes
 ------------------
 - Phase labels are manual and depend on folder naming
-- Script does not analyze fluorescence to determine phase
-- Width is 2D-based, not true 3D diameter
+- Width is 2D-based
 - Results depend on segmentation quality from Cellpose
 - Missing or inconsistent masks are skipped with warnings
 
@@ -185,15 +182,3 @@ Use consistent naming like:
 - G2 cell 1
 - membrane
 - nucleus
-
----------------------------------------------------------------------
-
-If something fails
------------------
-Check:
-- folder structure matches expected layout
-- mask files exist and are readable
-- dependencies are installed correctly
-- numpy version is <2
-
----------------------------------------------------------------------
