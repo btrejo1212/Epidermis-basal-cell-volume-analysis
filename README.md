@@ -53,35 +53,35 @@ Epidermis-basal-cell-volume-analysis/
 
 Quantify cell geometry from fixed samples.
 
-Input:
+<ins>Input:</ins>
 
 Cellpose segmentation masks for:
 membrane
 nucleus
 
-Output:
+<ins>Output:</ins>
 
 volume (µm³)
 height, width, aspect ratio
 embryo-normalized values
 
-Notes:
+<ins>Notes:</ins>
 
 supports multiple embryos and positions
 each cell is analyzed independently
 
 ### 2. Live volumes from tracked cell identities
 
-Purpose:
+<ins>Purpose: </ins>
 
 Track cells over time and reconstruct volume dynamics using QuantifyPolarity measurements.
 
-Input:
+<ins>Input:</ins>
 
 QuantifyPolarity outputs (area measurements)
 manually created tracked_IDs.txt
 
-Concept:
+<ins>Concept:</ins>
 
 cells are tracked manually using IDs across timepoints
 cell division is encoded using | in the tracking file
@@ -99,16 +99,16 @@ combines them using a frustum model and outputs volume over time.
 
 ### 3. Live volumes from single-cell mask stacks
 
-Purpose:
+<ins>Purpose: </ins>
 
 Compute volume directly from 3D mask stacks for individual tracked cells.
 
-Input:
+<ins>Input: </ins>
 
 Cellpose masks for a single cell across time
 organized as Z-stacks per timepoint
 
-Output:
+<ins>Output:</ins>
 
 volume timecourse (µm³) with Birth_T and G1exit_T annotations
 
