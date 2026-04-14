@@ -46,7 +46,7 @@ Epidermis-basal-cell-volume-analysis/
 ├── README.md
 
 ```
-###Note
+### Note
 Data and source folders share an identical directory structure so each dataset maps directly to its corresponding analysis code, with all scripts organized within the src folder.
 
 ## Pipelines
