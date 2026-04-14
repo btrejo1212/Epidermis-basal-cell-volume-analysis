@@ -104,13 +104,17 @@ Output:
 volume timecourse (µm³) with Birth_T and G1exit_T annotations
 
 ## Notes
-```text
+
 -All pipelines rely on masks generated using **Cellpose**
+
 -Cell cycle timing (G1, S, G2) are not computed by code, but instead manually annotated using FUCCI reporter and/or Geminin staining.
--Each pipeline python code is run independently from the repository root
+
+-Each pipeline python code is run independently from the repository root.
+
 -Datasets are reduced in size for repository storage reasons, but should contain enough information to reproduce some outputs & demonstrate file organization.
+
 -Results folder is not present until python code is ran.
-```
+
 ## Requirements:
 ```
 -numpy<2
