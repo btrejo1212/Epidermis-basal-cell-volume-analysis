@@ -1,41 +1,141 @@
 """
-Compute frustum-based cell volumes over time from Cellpose mask files.
+Live single-cell volume analysis from Cellpose-derived mask stacks.
 
-This script is designed to live inside the repository, for example:
-    src/live_single_masks/compute_frustum_volumes.py
+Overview
+--------
+This script computes frustum-based cell volumes across time for individually
+tracked live cells.
 
-It can be run in two ways:
-1) As a normal Python script inside the repo
-2) From a notebook / interactive session
+Unlike the BMA live-volume workflow that combines basal, middle, and apical
+measurements from QuantifyPolarity outputs, this script uses a single segmented
+cell mask stack per timepoint. Each cell folder contains masks only for the
+cell being followed, typically centered on the nucleus of the cell in focus.
 
-Default behavior:
-- Uses the dataset inside the repository:
-    Data/Live volumes from single masks
+All masks used here were generated prior to this script using Cellpose
+segmentation. This script assumes segmentation has already been completed and
+that the mask files are organized into the expected folder structure.
 
-Optional behavior:
-- User can override the repo, input, and output directories below
+This script does NOT perform:
+- denoising
+- segmentation
+- tracking
+- cell-cycle classification
 
-Expected input structure:
-- ROOT_DIR contains one or more cell folders
-- each cell folder may contain:
-    - a Birth folder
-    - a G1 exit folder
-    - one *_split folder
-- inside the *_split folder:
-    - timepoint folders such as T1, T2, ...
-- inside each timepoint folder:
-    - a Zs/ folder containing mask files
+It only reads previously generated mask files and computes volume over time.
 
-Accepted mask file types:
+---------------------------------------------------------------------
+
+How the data are organized
+--------------------------
+The input folder contains one or more tracked cell folders.
+
+Each tracked cell folder may contain:
+- a Birth folder
+- a G1 exit folder
+- one *_split folder containing all timepoints
+
+Expected structure:
+```
+Data/
+  Live volumes from single masks/
+    cell 1/
+      Birth/
+      G1 exit/
+      example_split/
+        T1/
+          Zs/
+        T2/
+          Zs/
+        T3/
+          Zs/
+        ...
+```
+Within each T# folder:
+- Zs/ contains the segmented Z slices for the single cell being analyzed
+- only the tracked cell of interest should be present in these masks
+
+Accepted mask formats:
 - *_cp_masks.png
 - *_cp_masks.tif
 - *_cp_masks.tiff
 - *_seg.npy
 
-Output:
-- one Excel workbook summarizing volume timecourses
-- saved in:
-    results/Live volumes from single masks/
+---------------------------------------------------------------------
+
+Birth_T and G1exit_T
+--------------------
+This script reports two timing annotations for each tracked cell:
+
+Birth_T
+    The timepoint corresponding to cell birth after division.
+    This is read from files inside the Birth folder.
+
+G1exit_T
+    The timepoint corresponding to G1 exit.
+    This is read from files inside the G1 exit folder.
+
+Important:
+- The script extracts the T number from filenames in the Birth and G1 exit folders
+
+These annotations are included in the Excel output but are not used to compute
+the volume itself.
+
+---------------------------------------------------------------------
+
+Volume calculation
+------------------
+For each timepoint:
+- all Z-slice masks for the tracked cell are collected from the Zs/ folder
+- per-slice areas are converted from pixel^2 to um^2
+- frustum volume is computed across adjacent slices
+
+Output units:
+- volume is reported in um^3
+
+If multiple disconnected mask components are present in a slice, the script
+keeps only the largest connected component when SciPy is available.
+
+---------------------------------------------------------------------
+
+Example dataset note
+--------------------
+The example dataset included in the repository is intentionally simplified.
+
+Only a subset of representative masks are included in the example folders
+to keep the repository size manageable. The purpose of the example is to show
+the expected folder layout and file naming.
+
+Users running the script on their own data should provide the full set of
+timepoint folders and Z-slice masks for each tracked cell.
+
+---------------------------------------------------------------------
+
+Outputs
+-------
+The script writes one Excel workbook:
+
+results/
+  Live volumes from single masks/
+    Cell_Frustum_Volumes_Timecourse_um3.xlsx
+
+The workbook includes:
+- one column per tracked cell
+- Birth_T
+- G1exit_T
+- volume values for each timepoint
+- units explicitly labeled as um^3
+
+---------------------------------------------------------------------
+
+How to run
+----------
+From the repository root:
+
+    python "src\\Live volumes from single masks\\compute_frustum_volumes.py"
+
+Optional input and output paths can be changed in the USER SETTINGS section below.
+
+---------------------------------------------------------------------
 """
 
 from pathlib import Path
