@@ -56,14 +56,14 @@ Quantify cell geometry from fixed samples.
 <ins>Input:</ins>
 
 -Cellpose segmentation masks for:\
-   -membrane\
-   -nucleus
+   -Membrane\
+   -Nucleus
 
 <ins>Output:</ins>
 
--volume (µm³)\
--height, width, aspect ratio\
--embryo-normalized values
+-Volume (µm³)\
+-Height, width, aspect ratio\
+-Embryo-normalized values
 
 
 ### 2. Live volumes from tracked cell identities
@@ -75,7 +75,7 @@ Track cells over time and reconstruct volume dynamics using QuantifyPolarity mea
 <ins>Input:</ins>
 
 -QuantifyPolarity outputs (area measurements)\
--manually created tracked_IDs.txt 
+-Manually created tracked_IDs.txt 
 
 <ins>Output:</ins>
 
@@ -90,11 +90,11 @@ Compute volume directly from 3D mask stacks for individual tracked cells.
 <ins>Input: </ins>
 
 -Cellpose masks for a single cell across time\
--organized as Z-stacks per timepoint
+-Organized as Z-stacks per timepoint
 
 <ins>Output:</ins>
 
--volume timecourse (µm³) with Birth_T and G1exit_T annotations
+-Volume timecourse (µm³) with Birth_T and G1exit_T annotations
 
 ## Notes
 
