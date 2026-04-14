@@ -1,1 +1,22 @@
+# Python cache
+__pycache__/
+*.pyc
 
+# Temporary / editor files
+.DS_Store
+Thumbs.db
+~$*.xlsx
+
+# VS Code / IDE settings
+.vscode/
+.idea/
+
+# Generated results
+results/*
+!results/.keep
+
+# Optional: ignore large raw image files if you do NOT want them uploaded
+# *.tif
+# *.tiff
+# *.png
+# *.npy
