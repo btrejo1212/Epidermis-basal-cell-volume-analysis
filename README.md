@@ -45,60 +45,11 @@ Epidermis-basal-cell-volume-analysis/
 ├── README.md
 
 ```
-## Pipelines
-
-1. Fixed-cell volumes (membrane and nucleus)
-
-Purpose
-Quantify cell geometry from fixed samples.
-
-Input
-
-Cellpose segmentation masks for:
-membrane
-nucleus
-
-Output
-
-volume (µm³)
-height, width, aspect ratio
-embryo-normalized values
-2. Live volumes from tracked cell identities
-
-Purpose
-Track cells over time and reconstruct volume dynamics using QuantifyPolarity measurements.
-
-Input
-
-QuantifyPolarity outputs (area measurements)
-manually created tracked_IDs.txt
-
-Tracking concept
-
-cells are tracked manually using IDs across timepoints
-cell division is encoded using | in the tracking file
-
-Volume calculation
-
-uses three planes:
-basal
-middle
-apical
-combines these using a frustum model to estimate volume over time
-3. Live volumes from single-cell mask stacks
-
-Purpose
-Compute volume directly from 3D mask stacks for individual tracked cells.
-
-Input
-
-Cellpose masks for a single cell across time
-organized as Z-stacks per timepoint
-
-Output
-
-volume timecourse (µm³)
-includes Birth_T and G1exit_T annotations
+## Pipelines ### 1. Fixed-cell volumes (membrane and nucleus) Purpose: Quantify cell geometry from fixed samples. Input: Cellpose segmentation masks for: membrane nucleus Output: volume (µm³) height, width, aspect ratio embryo-normalized values ### 2. Live volumes from tracked cell identities Purpose: Track cells over time and reconstruct volume dynamics using QuantifyPolarity measurements. Input: QuantifyPolarity outputs (area measurements) manually created tracked_IDs.txt concept: cells are tracked manually using IDs across timepoints cell division is encoded using | in the tracking file Volume calculation: uses three planes:
+-basal
+-middle
+-apical
+combines them using a frustum model and outputs volume over time ### 3. Live volumes from single-cell mask stacks Purpose: Compute volume directly from 3D mask stacks for individual tracked cells. Input: Cellpose masks for a single cell across time organized as Z-stacks per timepoint Output: volume timecourse (µm³) with Birth_T and G1exit_T annotations
 
 ## Notes
 
