@@ -49,8 +49,7 @@ START=<timepoint>: ID.ID.ID | D1_ID.D1_ID | D2_ID.D2_ID
 ### Example
 
 
-START=1: 10.15.18.22
-START=3: 50.60.70 | 80.90.100
+START=1: 10.15.18.22. | 50.60.70 | 80.90.100
 
 
 ---
