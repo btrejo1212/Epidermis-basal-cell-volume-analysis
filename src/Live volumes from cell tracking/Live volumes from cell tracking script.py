@@ -1,59 +1,150 @@
 """
-Tracked cell volume pipeline
+Tracked cell volume pipeline from live imaging data.
 
-What this script does
----------------------
-1. Finds tracking folders inside:
-       Data/Live volumes from cell tracking/Tracked ex cell 1
-2. Reads:
-       tracked_IDs.txt
-       Denoised_Image Seq/All_Timepoints_Combined.xlsx
-3. Builds Tracked_Cell_Shapes.xlsx for each valid folder
-4. Finds matching apical / middle / basal folders
-5. Builds BMA measurement workbooks
-6. Computes volume in um^3
-7. Generates simple 3D PNG visualizations
+Overview
+--------
+This pipeline reconstructs cell volumes across time from manually tracked cells
+using segmentation-derived shape measurements.
 
-Expected repository layout
+The workflow assumes the following upstream steps have already been performed:
+
+1. Live imaging of tissue over time
+2. Segmentation of each timepoint using Cellpose
+3. Extraction of shape features (e.g., area) using QuantifyPolarity
+4. Export of all measurements into a combined Excel file
+   (All_Timepoints_Combined.xlsx)
+
+This script does not perform segmentation or feature extraction. It operates
+only on processed outputs from Cellpose and QuantifyPolarity.
+
+---------------------------------------------------------------------
+
+Tracking method
 --------------------------
-repo/
-├── Data/
-│   └── Live volumes from cell tracking/
-│       └── Tracked ex cell 1/
-│           ├── Apical Z/
-│           │   ├── tracked_IDs.txt
-│           │   └── Denoised_Image Seq/
-│           │       └── All_Timepoints_Combined.xlsx
-│           ├── Middle Z/
-│           │   ├── tracked_IDs.txt
-│           │   └── Denoised_Image Seq/
-│           │       └── All_Timepoints_Combined.xlsx
-│           ├── Basal Z/
-│           │   ├── tracked_IDs.txt
-│           │   └── Denoised_Image Seq/
-│           │       └── All_Timepoints_Combined.xlsx
-│           └── ... optional additional matching groups ...
-├── results/
-└── src/
-    └── Live volumes from cell tracking/
-        └── Live volumes from cell tracking script.py
+Cell tracking is performed manually using cell IDs from QuantifyPolarity output.
 
-How to run
-----------
-Run from the repository root:
+For each dataset, a file named:
 
-    python "src\\Live volumes from cell tracking\\Live volumes from cell tracking script.py"
+    tracked_IDs.txt
+
+is created. This file defines the identity of a cell across time.
+
+Format:
+-------
+Each line corresponds to one tracked cell (or lineage):
+
+    START=<timepoint>: ID1.ID2.ID3... | D1_ID1.D1_ID2... | D2_ID1.D2_ID2...
+
+Rules:
+- "." separates timepoints
+- "|" separates branches after division
+- First segment = parent cell track
+- Second segment = daughter 1 (D1)
+- Third segment = daughter 2 (D2)
+- "-" or empty entries indicate missing or untracked cells
+
+Examples:
+    START=1: 12.15.18.21
+        → single cell tracked over time
+
+    START=5: 12.15.18.21.|101.105.110. | 201.205.210
+        → cell divides into two daughters
+
+    START=3: 50.55.-.70
+        → missing tracking at one timepoint
+
+---------------------------------------------------------------------
+
+Z-plane structure
+-----------------------------
+Each tracked dataset contains three spatial planes:
+
+- Apical
+- Middle
+- Basal
+
+Each plane contains:
+- Denoised images (Cellpose input)
+- QuantifyPolarity outputs
+- All_Timepoints_Combined.xlsx (compiled measurements)
+
+Volumes are computed using these three planes.
+
+---------------------------------------------------------------------
+
+Pipeline steps
+--------------
+1. Read tracked_IDs.txt to define cell trajectories
+2. Extract per-timepoint shape values using cell IDs
+3. Build Tracked_Cell_Shapes.xlsx for each dataset
+4. Match Apical / Middle / Basal data for each tracked cell
+5. Construct BMA (Basal-Middle-Apical) measurement tables
+6. Compute volume using a frustum-based model
+7. Generate simple 3D visualizations (PNG)
+
+---------------------------------------------------------------------
+
+Volume calculation
+------------------
+Volume is computed using three Z planes:
+
+- Basal area
+- Middle area
+- Apical area
+
+Areas are converted from pixel^2 to µm², then volume is computed using a
+frustum approximation across the planes.
+
+Output units:
+    Volume in µm³
+
+---------------------------------------------------------------------
+
+*IMPORTANT* Example dataset note
+--------------------
+The provided example dataset contains only a subset of timepoints in the
+Apical/Middle/Basal folders to keep file size manageable.
+
+However:
+- tracked_IDs.txt contains full trajectories
+- All_Timepoints_Combined.xlsx contains full time series data
+
+Therefore:
+Final outputs still include all timepoints, even if not all raw image files
+are included in the repository.
+
+---------------------------------------------------------------------
+
+Outputs
+-------
+Outputs are written to:
+
+    results/Live volumes from cell tracking/<dataset>/
+
+Includes:
+- Tracked_Cell_Shapes.xlsx
+- BMA_measurements.xlsx
+- *_with_volume.xlsx
+- 3D visualization images
+
+---------------------------------------------------------------------
 
 Notes
 -----
-- The script auto-detects the repository root when run as a .py file.
-- By default it uses:
-      Data/Live volumes from cell tracking/Tracked ex cell 1
-- Outputs are written under:
-      results/Live volumes from cell tracking/Tracked ex cell 1
-  and also next to some intermediate files in the data folder.
+- Tracking is manual and depends on correct ID assignment
+- The script assumes consistent Cellpose + QuantifyPolarity outputs
+- Visualization is qualitative, not a full 3D reconstruction
+- Multiple datasets, groups, and daughter cells are supported
 
-Editable settings are grouped below.
+---------------------------------------------------------------------
+
+How to run
+----------
+From repository root:
+
+    python "src\\Live volumes from cell tracking\\Live volumes from cell tracking script.py"
+
+Dependencies are listed in requirements.txt.
 """
 
 from __future__ import annotations
