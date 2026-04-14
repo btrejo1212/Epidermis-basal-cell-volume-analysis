@@ -58,14 +58,14 @@ START=1: 10.15.18.22. | 50.60.70 | 80.90.100
 
 ```
 Data/
-Live volumes from cell tracking/
-Tracked ex cell 1/
-Apical Z/
-tracked_IDs.txt
-Denoised_Image Seq/
-All_Timepoints_Combined.xlsx
-Middle Z/
-Basal Z/
+   Live volumes from cell tracking/
+      Tracked ex cell 1/
+         Apical Z/
+            tracked_IDs.txt
+            Denoised_Image Seq/
+               All_Timepoints_Combined.xlsx
+         Middle Z/
+         Basal Z/
 ```
 
 Each plane must contain:
