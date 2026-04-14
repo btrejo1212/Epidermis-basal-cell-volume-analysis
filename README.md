@@ -28,6 +28,7 @@ Each pipeline is independent and can be run separately.
 
 ## Repository structure
 
+
 ```text
 Epidermis-basal-cell-volume-analysis/
 ├── Data/
@@ -45,6 +46,8 @@ Epidermis-basal-cell-volume-analysis/
 ├── README.md
 
 ```
+###Note
+Data and source folders share an identical directory structure so each dataset maps directly to its corresponding analysis code, with all scripts organized within the src folder.
 
 ## Pipelines
 ### 1. Fixed-cell volumes (membrane and nucleus)
