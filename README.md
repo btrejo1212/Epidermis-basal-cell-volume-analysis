@@ -55,20 +55,16 @@ Quantify cell geometry from fixed samples.
 
 <ins>Input:</ins>
 
-Cellpose segmentation masks for:
-membrane
-nucleus
+-Cellpose segmentation masks for:
+   -membrane
+   -nucleus
 
 <ins>Output:</ins>
 
-volume (µm³)
-height, width, aspect ratio
-embryo-normalized values
+-volume (µm³)
+-height, width, aspect ratio
+-embryo-normalized values
 
-<ins>Notes:</ins>
-
-supports multiple embryos and positions
-each cell is analyzed independently
 
 ### 2. Live volumes from tracked cell identities
 
@@ -78,24 +74,12 @@ Track cells over time and reconstruct volume dynamics using QuantifyPolarity mea
 
 <ins>Input:</ins>
 
-QuantifyPolarity outputs (area measurements)
-manually created tracked_IDs.txt
+-QuantifyPolarity outputs (area measurements)
+-manually created tracked_IDs.txt 
 
-<ins>Concept:</ins>
+<ins>Output:</ins>
 
-cells are tracked manually using IDs across timepoints
-cell division is encoded using | in the tracking file
-
-Volume calculation:
-
-uses three planes:
--basal
-
--middle
-
--apical
-
-combines them using a frustum model and outputs volume over time.
+-Frustum model volume calculation by combining three planes over time.
 
 ### 3. Live volumes from single-cell mask stacks
 
@@ -105,12 +89,12 @@ Compute volume directly from 3D mask stacks for individual tracked cells.
 
 <ins>Input: </ins>
 
-Cellpose masks for a single cell across time
-organized as Z-stacks per timepoint
+-Cellpose masks for a single cell across time
+-organized as Z-stacks per timepoint
 
 <ins>Output:</ins>
 
-volume timecourse (µm³) with Birth_T and G1exit_T annotations
+-volume timecourse (µm³) with Birth_T and G1exit_T annotations
 
 ## Notes
 
