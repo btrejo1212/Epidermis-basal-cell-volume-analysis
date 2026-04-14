@@ -45,8 +45,9 @@ Epidermis-basal-cell-volume-analysis/
 ├── README.md
 
 ```
-###Pipelines
-##1. Fixed-cell volumes (membrane and nucleus)
+
+### Pipelines
+## 1. Fixed-cell volumes (membrane and nucleus)
 
 Purpose:
 Quantify cell geometry from fixed samples.
@@ -68,7 +69,7 @@ Notes:
 supports multiple embryos and positions
 each cell is analyzed independently
 
-##2. Live volumes from tracked cell identities
+## 2. Live volumes from tracked cell identities
 
 Purpose:
 Track cells over time and reconstruct volume dynamics using QuantifyPolarity measurements.
