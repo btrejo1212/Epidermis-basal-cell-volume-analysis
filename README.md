@@ -50,6 +50,7 @@ Epidermis-basal-cell-volume-analysis/
 ### 1. Fixed-cell volumes (membrane and nucleus)
 
 Purpose:
+
 Quantify cell geometry from fixed samples.
 
 Input:
@@ -72,6 +73,7 @@ each cell is analyzed independently
 ### 2. Live volumes from tracked cell identities
 
 Purpose:
+
 Track cells over time and reconstruct volume dynamics using QuantifyPolarity measurements.
 
 Input:
@@ -98,6 +100,7 @@ combines them using a frustum model and outputs volume over time.
 ### 3. Live volumes from single-cell mask stacks
 
 Purpose:
+
 Compute volume directly from 3D mask stacks for individual tracked cells.
 
 Input:
