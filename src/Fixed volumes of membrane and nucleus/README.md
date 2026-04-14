@@ -51,23 +51,23 @@ Dataset structure (REQUIRED)
 ---------------------------
 Your data must be organized like this:
 
-Data/
-  Fixed volumes of membrane and nucleus/
-    Embryo 1/
-      Position A/
-        G1 cell 1/
-          membrane/
-          nucleus/   or nuclei/
-        S phase cell 1/
-          membrane/
-          nucleus/
-        G2 cell 1/
-          membrane/
-          nucleus/
-      Position B/
-        ...
-    Embryo 2/
-      ...
+Data/  
+  Fixed volumes of membrane and nucleus/  
+    Embryo 1/  
+      Position A/  
+        G1 cell 1/  
+          membrane/  
+          nucleus/   or nuclei/  
+        S phase cell 1/  
+          membrane/  
+          nucleus/  
+        G2 cell 1/  
+          membrane/  
+          nucleus/  
+      Position B/  
+        ...  
+    Embryo 2/  
+      ...  
 
 Notes:
 - "membrane" folder must contain membrane masks
