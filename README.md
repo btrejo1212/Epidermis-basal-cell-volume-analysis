@@ -49,7 +49,7 @@ Epidermis-basal-cell-volume-analysis/
 ## Pipelines
 ### 1. Fixed-cell volumes (membrane and nucleus)
 
-<u>Purpose:</u>
+<ins>Purpose: </ins>
 
 Quantify cell geometry from fixed samples.
 
